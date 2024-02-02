@@ -125,6 +125,7 @@ class ImageWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         Image.file(
           File(viewModel.selectedFile!.path),

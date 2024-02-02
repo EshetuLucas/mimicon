@@ -12,7 +12,7 @@ class BottomSection extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return SafeArea(
       child: SizedBox(
-        height: 200,
+        height: 205,
         child: viewModel.selectedFile == null
             ? const _SelectImageWidget()
             : _EditingWidget(
@@ -37,6 +37,7 @@ class _EditingWidget extends ViewModelWidget<HomeViewModel> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          verticalSpaceTiny,
           InkWell(
             onTap: viewModel.onBack,
             child: const Row(
@@ -92,8 +93,6 @@ class _EditingWidget extends ViewModelWidget<HomeViewModel> {
     );
   }
 }
-
-
 
 class _SelectImageWidget extends ViewModelWidget<HomeViewModel> {
   const _SelectImageWidget();
