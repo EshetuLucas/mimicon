@@ -5,12 +5,16 @@ import 'package:mimicon/ui/views/home/home_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mimicon/ui/dialogs/open_setting/open_setting_dialog.dart';
+import 'package:mimicon/ui/views/play_video/play_video_view.dart';
+import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
-    // @stacked-route
+    MaterialRoute(page: PlayVideoView),
+MaterialRoute(page: SpeechToTextView),
+// @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),

@@ -5,16 +5,27 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i3;
+import 'package:flutter/material.dart' as _i5;
 import 'package:flutter/material.dart';
 import 'package:mimicon/ui/views/home/home_view.dart' as _i2;
+import 'package:mimicon/ui/views/play_video/play_video_view.dart' as _i3;
+import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart'
+    as _i4;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i4;
+import 'package:stacked_services/stacked_services.dart' as _i6;
 
 class Routes {
   static const homeView = '/home-view';
 
-  static const all = <String>{homeView};
+  static const playVideoView = '/play-video-view';
+
+  static const speechToTextView = '/speech-to-text-view';
+
+  static const all = <String>{
+    homeView,
+    playVideoView,
+    speechToTextView,
+  };
 }
 
 class StackedRouter extends _i1.RouterBase {
@@ -22,7 +33,15 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.homeView,
       page: _i2.HomeView,
-    )
+    ),
+    _i1.RouteDef(
+      Routes.playVideoView,
+      page: _i3.PlayVideoView,
+    ),
+    _i1.RouteDef(
+      Routes.speechToTextView,
+      page: _i4.SpeechToTextView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -30,11 +49,23 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<HomeViewArguments>(
         orElse: () => const HomeViewArguments(),
       );
-      return _i3.MaterialPageRoute<dynamic>(
+      return _i5.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(key: args.key),
         settings: data,
       );
-    }
+    },
+    _i3.PlayVideoView: (data) {
+      return _i5.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i3.PlayVideoView(),
+        settings: data,
+      );
+    },
+    _i4.SpeechToTextView: (data) {
+      return _i5.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i4.SpeechToTextView(),
+        settings: data,
+      );
+    },
   };
 
   @override
@@ -47,7 +78,7 @@ class StackedRouter extends _i1.RouterBase {
 class HomeViewArguments {
   const HomeViewArguments({this.key});
 
-  final _i3.Key? key;
+  final _i5.Key? key;
 
   @override
   String toString() {
@@ -66,9 +97,9 @@ class HomeViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i4.NavigationService {
+extension NavigatorStateExtension on _i6.NavigationService {
   Future<dynamic> navigateToHomeView({
-    _i3.Key? key,
+    _i5.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -83,8 +114,36 @@ extension NavigatorStateExtension on _i4.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToPlayVideoView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.playVideoView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToSpeechToTextView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.speechToTextView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView({
-    _i3.Key? key,
+    _i5.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -93,6 +152,34 @@ extension NavigatorStateExtension on _i4.NavigationService {
   }) async {
     return replaceWith<dynamic>(Routes.homeView,
         arguments: HomeViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithPlayVideoView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.playVideoView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithSpeechToTextView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.speechToTextView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
