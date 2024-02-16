@@ -56,7 +56,7 @@ mixin MediaMixin on BaseViewModel {
   void initializeCameraController(CameraDescription cameraDescription) {
     final CameraController cameraController = CameraController(
       cameraDescription,
-      ResolutionPreset.medium,
+      ResolutionPreset.low,
       enableAudio: false,
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
@@ -91,8 +91,13 @@ mixin MediaMixin on BaseViewModel {
     notifyListeners();
   }
 
+  bool _isFromCamera = true;
+  bool get isFromCamera => _isBackCamera;
+
   // Capture a photo using the camera
   Future<void> fromCamera() async {
+    _isFromCamera = true;
+
     try {
       if (await _permissionService.checkPermission(PermissionType.camera)) {
         await initializeControllerFuture;
@@ -109,6 +114,7 @@ mixin MediaMixin on BaseViewModel {
 
   // Pick a photo from the device's gallery
   Future<void> fromFile() async {
+    _isFromCamera = false;
     try {
       final tempFile = await _mediaService.pickMedia(
         imageSourceType: ImageSourceType.file,

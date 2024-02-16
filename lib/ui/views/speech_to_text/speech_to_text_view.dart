@@ -67,6 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
   String _lastWords = '';
   double confidenceLevel = 0;
 
+  String _text = '';
+  String _wordsSofar = '';
+  String _status = '';
+
   @override
   void initState() {
     super.initState();
@@ -710,26 +714,24 @@ class SpeechScreen extends StatefulWidget {
 }
 
 class _SpeechScreenState extends State<SpeechScreen> {
-  late SpeechToText _speech;
+  late SpeechToText _speech = SpeechToText();
   String _text = '';
-  String _wordsSofar = 'Words so far: ';
+  String _wordsSofar = '';
   String _status = '';
 
   @override
   void dispose() {
     super.dispose();
-    _speech.stop();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    init();
+    if (_speech.isListening) {
+      _speech.cancel();
+    }
   }
 
   void init() {
+    _startListening = true;
     _speech = SpeechToText();
     _listen();
+    setState(() {});
   }
 
   void _listen() async {
@@ -740,9 +742,9 @@ class _SpeechScreenState extends State<SpeechScreen> {
           setState(() {
             _status = status.toString();
             if (_speech.isNotListening) {
-              _wordsSofar += _text;
-              _text = '';
-              init();
+              if (_startListening) {
+                init();
+              }
             }
           });
           print('*********************************************************');
@@ -769,6 +771,10 @@ class _SpeechScreenState extends State<SpeechScreen> {
         onResult: (result) {
           setState(() {
             _text = result.recognizedWords;
+            if (result.finalResult) {
+              _wordsSofar += ' ' + _text;
+              _text = '';
+            }
           });
         },
       )
@@ -782,11 +788,23 @@ class _SpeechScreenState extends State<SpeechScreen> {
     }
   }
 
+  bool _startListening = false;
+
+  void _stopListening() async {
+    _startListening = false;
+    _speech.stop();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Continuous Speech to Text Demo'),
+      floatingActionButton: FloatingActionButton(
+        onPressed:
+            // If not yet listening for speech start, otherwise stop
+            !_startListening ? init : _stopListening,
+        tooltip: 'Listen',
+        child: Icon(!_startListening ? Icons.mic_off : Icons.mic),
       ),
       body: Center(
         child: Column(
@@ -797,7 +815,9 @@ class _SpeechScreenState extends State<SpeechScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {}, // No action for the button
-              child: Text('Listening... ' + _status),
+              child: Text(_startListening
+                  ? 'Listening... '
+                  : 'Tap the microphone to start listening...'),
             ),
           ],
         ),

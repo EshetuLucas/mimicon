@@ -56,7 +56,7 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
         // Configure options for face detection
         final options = FaceDetectorOptions(enableLandmarks: true);
         final faceDetector = FaceDetector(options: options);
-        image = (await fileToImage(selectedFile!));
+       // image = (await fileToImage(selectedFile!));
         // Load the selected image for processing
         final inputImage = InputImage.fromFilePath(selectedFile!.path);
 

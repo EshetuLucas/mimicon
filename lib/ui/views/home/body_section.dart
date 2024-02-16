@@ -17,13 +17,13 @@ class BodySection extends ViewModelWidget<HomeViewModel> {
                 child: Stack(
                   children: [
                     const ImageWidget(),
-                    Positioned(
-                      left: -36,
-                      top: -100,
-                      child: CustomPaint(
-                        painter: FacePainter(viewModel.faces),
-                      ),
-                    ),
+                    // Positioned(
+                    //   left: -36,
+                    //   top: -100,
+                    //   child: CustomPaint(
+                    //     painter: FacePainter(viewModel.faces),
+                    //   ),
+                    // ),
                     if (viewModel.drawCircle)
                       for (String key
                           in viewModel.ovalGreenContainers.keys.toList())
@@ -135,17 +135,35 @@ class ImageWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Stack(
-      alignment: Alignment.center,
       children: [
-        if (viewModel.image != null)
+        if (viewModel.selectedFile != null)
           CustomPaint(
-            painter: MyPainter(viewModel.image!, screenWidth(context),
-                screenHeight(context) - 300, Paint()),
+            painter: _LandmarkPainter(
+              faces: viewModel.faces,
+              displayLandmarks: true,
+              width: viewModel.controller.value.previewSize!.width,
+            ),
+
+            // MyPainter(
+            //   viewModel.image!,
+            //   screenWidth(context),
+            //   screenHeight(context) - 300,
+            //   Paint(),
+            // ),
 
             //  ImagePainter(
             //   image: viewModel.image!,
             // ),
-            size: Size(double.infinity, double.infinity),
+            //size: Size(double.infinity, double.infinity),
+          ),
+
+        if (viewModel.selectedFile != null)
+          CustomPaint(
+            painter: FacePainter(viewModel.faces, viewModel.isFromCamera),
+            size: Size(
+              screenWidth(context),
+              screenHeight(context),
+            ),
           ),
 
         // _LandmarkPainter(
@@ -183,15 +201,16 @@ class ImageWidget extends ViewModelWidget<HomeViewModel> {
 
 class FacePainter extends CustomPainter {
   final List<Face> faces;
+  final bool isFromCamera;
 
-  FacePainter(this.faces);
+  FacePainter(this.faces, this.isFromCamera);
 
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
+      ..strokeWidth = 3.0;
 
     for (final face in faces) {
       final noseLandmark = face.landmarks[FaceLandmarkType.noseBase];
@@ -209,8 +228,9 @@ class FacePainter extends CustomPainter {
   void _drawCircle(Canvas canvas, Paint paint, FaceLandmark? landmark) {
     if (landmark != null) {
       canvas.drawCircle(
-        Offset(landmark.position.x.toDouble(), landmark.position.y.toDouble()),
-        10.0,
+        Offset(landmark.position.x.toDouble() - (!isFromCamera ? 110 : 0),
+            landmark.position.y.toDouble() - (!isFromCamera ? 50 : 0)),
+        8.0,
         paint,
       );
     }
@@ -222,54 +242,55 @@ class FacePainter extends CustomPainter {
   }
 }
 
-// class FacePainter extends CustomPainter {
-//   final List<Face> faces;
-//   final bool displayLandmarks;
-//   final double width;
+class _LandmarkPainter extends CustomPainter {
+  final List<Face> faces;
+  final bool displayLandmarks;
+  final double width;
 
-//   const FacePainter({
-//     required this.faces,
-//     required this.displayLandmarks,
-//     required this.width,
-//   });
+  const _LandmarkPainter({
+    required this.faces,
+    required this.displayLandmarks,
+    required this.width,
+  });
 
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     if (!displayLandmarks) return;
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (!displayLandmarks) return;
 
-//     // Calculate canvas scaling factor for efficient drawing
-//     final scale = size.width / width;
+    // Calculate canvas scaling factor for efficient drawing
+    final scale = size.width / width;
 
-//     for (final face in faces) {
-//       // Access desired landmarks (potentially with type checking)
-//       final noseLandmark = face.landmarks[FaceLandmarkType.noseBase];
-//       final leftEyeLandmark = face.landmarks[FaceLandmarkType.leftEye];
-//       final rightEyeLandmark = face.landmarks[FaceLandmarkType.rightEye];
-//       final mouthLandmark = face.landmarks[FaceLandmarkType.bottomMouth];
+    for (final face in faces) {
+      // Access desired landmarks (potentially with type checking)
+      final noseLandmark = face.landmarks[FaceLandmarkType.noseBase];
+      final leftEyeLandmark = face.landmarks[FaceLandmarkType.leftEye];
+      final rightEyeLandmark = face.landmarks[FaceLandmarkType.rightEye];
+      final mouthLandmark = face.landmarks[FaceLandmarkType.bottomMouth];
 
-//       // Draw circles using efficient calculations and scaling
-//       if (noseLandmark != null) {
-//         final center = Offset(
-//           noseLandmark.position.x * scale,
-//           noseLandmark.position.y * scale,
-//         );
-//         final radius = 10.0 * scale; // Adjust radius as needed
-//         _drawCircle(canvas, center, radius);
-//       }
-//       // Similarly for other landmarks
-//     }
-//   }
+      // Draw circles using efficient calculations and scaling
+      if (noseLandmark != null) {
+        final center = Offset(
+          noseLandmark.position.x * scale,
+          noseLandmark.position.y * scale,
+        );
+        final radius = 10.0 * scale; // Adjust radius as needed
+        _drawCircle(canvas, center, radius);
+      }
+      // Similarly for other landmarks
+    }
+  }
 
-//   void _drawCircle(Canvas canvas, Offset center, double radius) {
-//     final paint = Paint()
-//       ..color = Colors.red
-//       ..strokeWidth = 2.0; // Adjust stroke width as needed
-//     canvas.drawCircle(center, radius, paint);
-//   }
+  void _drawCircle(Canvas canvas, Offset center, double radius) {
+    final paint = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 2.0; // Adjust stroke width as needed
+    canvas.drawCircle(center, radius, paint);
+  }
 
-//   @override
-//   bool shouldRepaint(FacePainter oldDelegate) => oldDelegate.faces != faces;
-// }
+  @override
+  bool shouldRepaint(_LandmarkPainter oldDelegate) =>
+      oldDelegate.faces != faces;
+}
 
 // class FacePainter extends CustomPainter {
 //   final List<Face> faces;
@@ -421,8 +442,6 @@ class MyPainter extends CustomPainter {
     return true;
   }
 }
-
-
 
 class SpeechSampleApp extends StatefulWidget {
   const SpeechSampleApp({Key? key}) : super(key: key);
