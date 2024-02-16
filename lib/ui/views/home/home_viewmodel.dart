@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui_1;
@@ -14,6 +15,8 @@ import 'package:mimicon/services/custom_snackbar_service.dart';
 import 'package:move_to_background/move_to_background.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked/stacked.dart';
+
+import 'package:flutter/services.dart' show ByteData, rootBundle;
 
 class HomeViewModel extends BaseViewModel with MediaMixin {
   // Service for displaying snackbars
@@ -40,6 +43,9 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
   bool _isDetectingFace = false;
   bool get isDetectingFace => _isDetectingFace;
 
+  List<Face> faces = [];
+  bool get drawCircle => faces.isNotEmpty;
+
   /// Detect faces in the selected image and store the number of detected faces
   /// in [_numberOfFaces] value;
   Future<void> detectFaces() async {
@@ -48,14 +54,16 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
     if (hasSelectedFile) {
       try {
         // Configure options for face detection
-        final options = FaceDetectorOptions();
+        final options = FaceDetectorOptions(enableLandmarks: true);
         final faceDetector = FaceDetector(options: options);
-
+        image = (await fileToImage(selectedFile!));
         // Load the selected image for processing
         final inputImage = InputImage.fromFilePath(selectedFile!.path);
 
         // Process the image and get the list of detected faces
-        final List<Face> faces = await faceDetector.processImage(inputImage);
+        faces = await faceDetector.processImage(inputImage);
+        log.e('faces.first.landmarks');
+        log.e(faces.first.landmarks.entries.first.toString());
 
         // Update the number of detected faces
         _numberOfFaces = faces.length;
@@ -70,6 +78,27 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
     }
   }
 
+  // void _drawCirclesOnFaces(List<Face> faces) {
+  // // Access canvas or context as needed
+  // // Calculate positions based on landmark coordinates
+  // for (final face in faces) {
+  //   final noseLandmark = face.landmark(FaceLandmarkType.noseBase);
+  //   final leftEyeLandmark = face.landmark(FaceLandmarkType.leftEye);
+  //   final rightEyeLandmark = face.landmark(FaceLandmarkType.rightEye);
+  //   final mouthLandmark = face.landmark(FaceLandmarkType);
+
+  //   // Draw circles for each landmark
+  //   if (noseLandmark != null) {
+  //     // Calculate center and radius based on noseLandmark position
+  //     final circle = Circle(
+  //       center: Offset(noseLandmark.x, noseLandmark.y),
+  //       radius: 10.0, // Adjust radius as needed
+  //     );
+  //     // Draw circle using canvas or context
+  //   }
+  //   // Similarly for leftEyeLandmark, rightEyeLandmark, mouthLandmark
+
+  // }
   /// Remove the green oval container when the user double taps the green oval container
   void onDoubleTapGreenArea(String key) {
     ovalGreenContainers.remove(key);
@@ -208,6 +237,35 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
       // Set the ViewModel back to a non-busy state
       setBusy(false);
     }
+  }
+
+  ui_1.Image? image;
+
+  Future<ui_1.Image> fileToImage(File file) async {
+    try {
+      var bytes = await file.readAsBytes();
+      image = await decodeImageFromList(bytes.buffer.asUint8List());
+    } catch (e) {
+      log.e(e.toString());
+    }
+
+    return image!;
+    // final bytes = await file.readAsBytes();
+    // return imageFromBytes(bytes);
+  }
+
+  static Future<ui_1.Image> assetToImage(String assetPath) async {
+    final ByteData data = await rootBundle.load(assetPath);
+    final Uint8List bytes = data.buffer.asUint8List();
+    return imageFromBytes(bytes);
+  }
+
+  static Future<ui_1.Image> imageFromBytes(Uint8List bytes) async {
+    final Completer<ui_1.Image> completer = Completer();
+    ui_1.decodeImageFromList(bytes, (ui_1.Image img) {
+      return completer.complete(img);
+    });
+    return completer.future;
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mimicon/ui/dialogs/open_setting/open_setting_dialog.dart';
 import 'package:mimicon/ui/views/play_video/play_video_view.dart';
 import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart';
+import 'package:mimicon/ui/views/options/options_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -14,6 +15,7 @@ import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: PlayVideoView),
 MaterialRoute(page: SpeechToTextView),
+MaterialRoute(page: OptionsView),
 // @stacked-route
   ],
   dependencies: [

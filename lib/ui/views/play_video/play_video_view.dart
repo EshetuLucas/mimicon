@@ -6,7 +6,6 @@
 import 'package:flutter/material.dart';
 import 'package:mimicon/ui/views/play_video/play_video_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-import 'package:video_player/video_player.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 
 class PlayVideoView extends StackedView<PlayVideoViewModel> {

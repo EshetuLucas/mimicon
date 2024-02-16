@@ -5,14 +5,15 @@ import 'package:mimicon/app/app.locator.dart';
 import 'package:mimicon/app/app.router.dart';
 import 'package:mimicon/ui/common/app_colors.dart';
 import 'package:mimicon/ui/views/home/home_view.dart';
+import 'package:mimicon/ui/views/options/options_view.dart';
 import 'package:mimicon/ui/views/play_video/play_video_view.dart';
 import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'dart:io';
-
-import 'package:video_player/video_player.dart';
+//import 'package:tflite_flutter/tflite_flutter.dart';
+//import 'package:video_player/video_player.dart';
 
 void main() {
   setupLocator();
@@ -44,9 +45,9 @@ class MyApp extends StackedView<MainViewModel> {
           value: viewModel.systemUiOverlayStyle,
           child:
               //MyHomePage()
-              const PlayVideoView()
-          //HomeView(),
-          ),
+              //  const PlayVideoView()
+              // HomeView(),
+              const OptionsView()),
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [
