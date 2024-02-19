@@ -78,9 +78,7 @@ class MediaService {
     try {
       compressedImage = await FlutterImageCompress.compressWithFile(
         absolutePath,
-        minWidth: 1000,
-        minHeight: 1000,
-        quality: 30,
+        quality: 50,
       );
     } catch (e) {
       log.e(e);

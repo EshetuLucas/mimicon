@@ -5,30 +5,8 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'speech_to_text_viewmodel.dart';
 
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:math';
-
-import 'package:flutter/material.dart';
-import 'package:speech_to_text/speech_recognition_error.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
-
-import 'package:flutter_silero_vad/flutter_silero_vad.dart';
-import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-import 'package:mimicon/enums/container_shape_type.dart';
-import 'package:mimicon/enums/image_source_type.dart';
-import 'package:mimicon/ui/common/widgets/app_button.dart';
-import 'package:mimicon/ui/common/widgets/svg_builder.dart';
-import 'package:mimicon/utils/asset_helper.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:speech_to_text/speech_to_text.dart';
-import 'package:stacked/stacked.dart';
-import 'package:mimicon/ui/common/app_colors.dart';
-import 'package:mimicon/ui/common/ui_helpers.dart';
-import 'package:camera/camera.dart';
 
 class SpeechToTextView extends StackedView<SpeechToTextViewModel> {
   const SpeechToTextView({Key? key}) : super(key: key);

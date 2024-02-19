@@ -19,6 +19,8 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 
 class HomeViewModel extends BaseViewModel with MediaMixin {
+  final GlobalKey imageKey;
+  HomeViewModel(this.imageKey);
   // Service for displaying snackbars
   final _snackBarService = locator<CustomSnackbarService>();
 
@@ -46,19 +48,39 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
   List<Face> faces = [];
   bool get drawCircle => faces.isNotEmpty;
 
+  bool hasImage = false;
+  void setHasimage(bool value) async {
+    hasImage = value;
+    if (hasImage) {
+      hasImage = false;
+      await detectFaces();
+    }
+  }
+
+  Size? imageSize;
+
   /// Detect faces in the selected image and store the number of detected faces
   /// in [_numberOfFaces] value;
   Future<void> detectFaces() async {
-    _isDetectingFace = true; // Set face detection flag to true
-    notifyListeners(); // Notify listeners to update UI
+    // _isDetectingFace = true; // Set face detection flag to true
+    // notifyListeners(); // Notify listeners to update UI
     if (hasSelectedFile) {
       try {
+        faces.clear();
+        //  notifyListeners();
         // Configure options for face detection
-        final options = FaceDetectorOptions(enableLandmarks: true);
+        final options = FaceDetectorOptions(
+            enableLandmarks: true, enableContours: true, enableTracking: true);
         final faceDetector = FaceDetector(options: options);
-       // image = (await fileToImage(selectedFile!));
+        // image = (await fileToImage(selectedFile!));
         // Load the selected image for processing
-        final inputImage = InputImage.fromFilePath(selectedFile!.path);
+        await Future.delayed(const Duration(seconds: 1));
+        final file = await capturePng(
+            fileName: 'mimicon' + DateTime.now().toString(), qrKey: imageKey);
+        final inputImage = InputImage.fromFilePath(file.path);
+
+        imageSize = await getImageSize(file.path);
+        log.e(imageSize);
 
         // Process the image and get the list of detected faces
         faces = await faceDetector.processImage(inputImage);
@@ -78,27 +100,6 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
     }
   }
 
-  // void _drawCirclesOnFaces(List<Face> faces) {
-  // // Access canvas or context as needed
-  // // Calculate positions based on landmark coordinates
-  // for (final face in faces) {
-  //   final noseLandmark = face.landmark(FaceLandmarkType.noseBase);
-  //   final leftEyeLandmark = face.landmark(FaceLandmarkType.leftEye);
-  //   final rightEyeLandmark = face.landmark(FaceLandmarkType.rightEye);
-  //   final mouthLandmark = face.landmark(FaceLandmarkType);
-
-  //   // Draw circles for each landmark
-  //   if (noseLandmark != null) {
-  //     // Calculate center and radius based on noseLandmark position
-  //     final circle = Circle(
-  //       center: Offset(noseLandmark.x, noseLandmark.y),
-  //       radius: 10.0, // Adjust radius as needed
-  //     );
-  //     // Draw circle using canvas or context
-  //   }
-  //   // Similarly for leftEyeLandmark, rightEyeLandmark, mouthLandmark
-
-  // }
   /// Remove the green oval container when the user double taps the green oval container
   void onDoubleTapGreenArea(String key) {
     ovalGreenContainers.remove(key);
@@ -113,7 +114,7 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
       await fromFile();
     }
     // Perform face detection on the selected image
-    await detectFaces();
+    //await detectFaces();
   }
 
   /// Toggle the camera when the user changes the image to the front or back
@@ -192,7 +193,7 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
           qrKey.currentContext!.findRenderObject() as RenderRepaintBoundary?;
 
       // Capture the image from the boundary with a specified pixel ratio
-      final image = await boundary!.toImage(pixelRatio: 3);
+      final image = await boundary!.toImage(pixelRatio: 1);
 
       // Convert the captured image to ByteData in PNG format
       ByteData? byteData =
@@ -266,6 +267,15 @@ class HomeViewModel extends BaseViewModel with MediaMixin {
       return completer.complete(img);
     });
     return completer.future;
+  }
+
+  Future<Size> getImageSize(String imagePath) async {
+    final File imageFile = File(imagePath);
+    final Uint8List imageData = await imageFile.readAsBytes();
+    final ui_1.Codec codec = await ui_1.instantiateImageCodec(imageData);
+    final ui_1.FrameInfo frameInfo = await codec.getNextFrame();
+    return Size(
+        frameInfo.image.width.toDouble(), frameInfo.image.height.toDouble());
   }
 }
 

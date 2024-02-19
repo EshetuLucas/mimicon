@@ -92,11 +92,13 @@ mixin MediaMixin on BaseViewModel {
   }
 
   bool _isFromCamera = true;
-  bool get isFromCamera => _isBackCamera;
+  bool get isFromCamera => _isFromCamera;
 
   // Capture a photo using the camera
   Future<void> fromCamera() async {
     _isFromCamera = true;
+    log.e('From camera:$_isFromCamera');
+    notifyListeners();
 
     try {
       if (await _permissionService.checkPermission(PermissionType.camera)) {
@@ -115,6 +117,7 @@ mixin MediaMixin on BaseViewModel {
   // Pick a photo from the device's gallery
   Future<void> fromFile() async {
     _isFromCamera = false;
+    notifyListeners();
     try {
       final tempFile = await _mediaService.pickMedia(
         imageSourceType: ImageSourceType.file,

@@ -1,4 +1,5 @@
 PODS:
+  - BIJKPlayer (0.7.16)
   - camera_avfoundation (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -34,10 +35,18 @@ PODS:
   - DKPhotoGallery/Resource (0.0.17):
     - SDWebImage
     - SwiftyGif
+  - fijkplayer (0.11.0):
+    - BIJKPlayer (~> 0.7.16)
+    - Flutter
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
+  - flutter_image_compress_common (1.0.0):
+    - Flutter
+    - Mantle
+    - SDWebImage
+    - SDWebImageWebPCoder
   - gallery_saver (0.0.1):
     - Flutter
   - google_mlkit_commons (0.6.1):
@@ -91,6 +100,9 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
+  - Mantle (2.2.0):
+    - Mantle/extobjc (= 2.2.0)
+  - Mantle/extobjc (2.2.0)
   - MLImage (1.0.0-beta4)
   - MLKitCommon (9.0.0):
     - GoogleDataTransport (~> 9.0)
@@ -116,8 +128,6 @@ PODS:
     - nanopb/encode (= 2.30909.1)
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
-  - package_info_plus (0.4.5):
-    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -127,40 +137,34 @@ PODS:
   - SDWebImage (5.18.11):
     - SDWebImage/Core (= 5.18.11)
   - SDWebImage/Core (5.18.11)
+  - SDWebImageWebPCoder (0.14.5):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.17)
   - speech_to_text (0.0.1):
     - Flutter
     - Try
   - SwiftyGif (5.4.4)
   - Try (2.1.1)
-  - video_player_avfoundation (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - video_thumbnail (0.0.1):
-    - Flutter
-    - libwebp
-  - wakelock_plus (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - fijkplayer (from `.symlinks/plugins/fijkplayer/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
+  - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
   - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - google_mlkit_commons (from `.symlinks/plugins/google_mlkit_commons/ios`)
   - google_mlkit_face_detection (from `.symlinks/plugins/google_mlkit_face_detection/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - move_to_background (from `.symlinks/plugins/move_to_background/ios`)
-  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
-  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
-  - video_thumbnail (from `.symlinks/plugins/video_thumbnail/ios`)
-  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
+    - BIJKPlayer
     - DKImagePickerController
     - DKPhotoGallery
     - GoogleDataTransport
@@ -170,6 +174,7 @@ SPEC REPOS:
     - GoogleUtilitiesComponents
     - GTMSessionFetcher
     - libwebp
+    - Mantle
     - MLImage
     - MLKitCommon
     - MLKitFaceDetection
@@ -177,6 +182,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - SDWebImageWebPCoder
     - SwiftyGif
     - Try
 
@@ -185,10 +191,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
+  fijkplayer:
+    :path: ".symlinks/plugins/fijkplayer/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
+  flutter_image_compress_common:
+    :path: ".symlinks/plugins/flutter_image_compress_common/ios"
   gallery_saver:
     :path: ".symlinks/plugins/gallery_saver/ios"
   google_mlkit_commons:
@@ -199,28 +209,23 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   move_to_background:
     :path: ".symlinks/plugins/move_to_background/ios"
-  package_info_plus:
-    :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   speech_to_text:
     :path: ".symlinks/plugins/speech_to_text/ios"
-  video_player_avfoundation:
-    :path: ".symlinks/plugins/video_player_avfoundation/darwin"
-  video_thumbnail:
-    :path: ".symlinks/plugins/video_thumbnail/ios"
-  wakelock_plus:
-    :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
+  BIJKPlayer: 4c5d66e5cb99ae5bade6f22a4fcc031722a81c64
   camera_avfoundation: 759172d1a77ae7be0de08fc104cfb79738b8a59e
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
+  fijkplayer: 8b6d864948dc28e6e07248ed4fce61a7467db4df
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_image_compress_common: ec1d45c362c9d30a3f6a0426c297f47c52007e3e
   gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
   google_mlkit_commons: 3857c1e9f23ca02073f8dd34a7a3580feb814cef
   google_mlkit_face_detection: 52f7e4c15a7c49b98940fa32af4c2b10fd8608fc
@@ -232,23 +237,21 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
+  Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
   MLImage: 7bb7c4264164ade9bf64f679b40fb29c8f33ee9b
   MLKitCommon: c1b791c3e667091918d91bda4bba69a91011e390
   MLKitFaceDetection: 4981488f71ea8ed718cda692a29ab562637d9ae5
   MLKitVision: 8baa5f46ee3352614169b85250574fde38c36f49
   move_to_background: 39a5b79b26d577b0372cbe8a8c55e7aa9fcd3a2d
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
-  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
+  SDWebImageWebPCoder: c94f09adbca681822edad9e532ac752db713eabf
   speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
-  video_player_avfoundation: 02011213dab73ae3687df27ce441fbbcc82b5579
-  video_thumbnail: c4e2a3c539e247d4de13cd545344fd2d26ffafd1
-  wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 

@@ -51,10 +51,6 @@ dependencies:
   move_to_background: ^1.0.2
   speech_to_text: ^6.6.0
   fijkplayer: ^0.11.0
-  flutter_silero_vad:
-    git:
-      url: https://github.com/char5742/flutter_silero_vad.git
-  google_ml_vision: ^0.0.8
   flutter_image_compress: ^2.1.0
 
 
