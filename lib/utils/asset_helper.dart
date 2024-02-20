@@ -20,3 +20,4 @@ const String moreHorizontalSvg = svgsPath + '/more_horizontal.svg';
 const String muteSvg = svgsPath + '/mute.svg';
 const String talkSvg = svgsPath + '/talk.svg';
 const String heartSvg = svgsPath + '/heart.svg';
+const String likedSvg = svgsPath + '/liked.svg';
