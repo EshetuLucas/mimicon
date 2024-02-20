@@ -1,5 +1,5 @@
 import 'package:mimicon/app/app.locator.dart';
-import 'package:mimicon/ui/views/home/home_view.dart';
+import 'package:mimicon/ui/views/camera/home_view.dart';
 import 'package:mimicon/ui/views/play_video/play_video_view.dart';
 import 'package:mimicon/ui/views/speech_to_text/speech_to_text_view.dart';
 import 'package:stacked/stacked.dart';
@@ -17,6 +17,6 @@ class OptionsViewModel extends BaseViewModel {
   }
 
   void onFaceDetection() {
-    _navigationService.navigateToView(HomeView());
+    _navigationService.navigateToView(CameraView());
   }
 }

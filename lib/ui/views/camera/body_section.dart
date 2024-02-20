@@ -1,6 +1,6 @@
 part of 'home_view.dart';
 
-class BodySection extends ViewModelWidget<HomeViewModel> {
+class BodySection extends ViewModelWidget<CameraViewModel> {
   const BodySection({
     super.key,
     required this.imageKey,
@@ -9,7 +9,7 @@ class BodySection extends ViewModelWidget<HomeViewModel> {
   final GlobalKey<State<StatefulWidget>> imageKey;
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return Expanded(
         child: viewModel.hasSelectedFile
             ? RepaintBoundary(
@@ -79,7 +79,7 @@ class CameraWidget extends StatefulWidget {
     required this.viewModel,
   });
 
-  final HomeViewModel viewModel;
+  final CameraViewModel viewModel;
 
   @override
   State<CameraWidget> createState() => _CameraWidgetState();
@@ -120,13 +120,13 @@ class _CameraWidgetState extends State<CameraWidget>
   }
 }
 
-class ImageWidget extends ViewModelWidget<HomeViewModel> {
+class ImageWidget extends ViewModelWidget<CameraViewModel> {
   const ImageWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return Stack(
       children: [
         if (viewModel.selectedFile != null)

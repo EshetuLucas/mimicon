@@ -8,20 +8,21 @@ const double _mediumSize = 25.0;
 const double _largeSize = 50.0;
 const double _massiveSize = 120.0;
 
+/// Horizontal Spacings
 const Widget horizontalSpaceTiny = SizedBox(width: _tinySize);
 const Widget horizontalSpaceSmall = SizedBox(width: _smallSize);
 const Widget horizontalSpaceMedium = SizedBox(width: _mediumSize);
 const Widget horizontalSpaceLarge = SizedBox(width: _largeSize);
+const Widget horizontalSpaceMassive = SizedBox(width: _massiveSize);
 
+Widget horizontalSpace(double width) => SizedBox(width: width);
+
+/// Vertical Spacings
 const Widget verticalSpaceTiny = SizedBox(height: _tinySize);
 const Widget verticalSpaceSmall = SizedBox(height: _smallSize);
 const Widget verticalSpaceMedium = SizedBox(height: _mediumSize);
 const Widget verticalSpaceLarge = SizedBox(height: _largeSize);
 const Widget verticalSpaceMassive = SizedBox(height: _massiveSize);
-
-EdgeInsets appSymmetricEdgePadding = const EdgeInsets.symmetric(
-  horizontal: 20,
-);
 
 Widget verticalSpace(double height) => SizedBox(height: height);
 

@@ -1,6 +1,6 @@
 part of 'home_view.dart';
 
-class BottomSection extends ViewModelWidget<HomeViewModel> {
+class BottomSection extends ViewModelWidget<CameraViewModel> {
   const BottomSection({
     super.key,
     required this.imageKey,
@@ -9,7 +9,7 @@ class BottomSection extends ViewModelWidget<HomeViewModel> {
   final GlobalKey imageKey;
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return SafeArea(
       child: SizedBox(
         height: 205,
@@ -23,7 +23,7 @@ class BottomSection extends ViewModelWidget<HomeViewModel> {
   }
 }
 
-class _EditingWidget extends ViewModelWidget<HomeViewModel> {
+class _EditingWidget extends ViewModelWidget<CameraViewModel> {
   const _EditingWidget({
     required this.imageKey,
   });
@@ -31,7 +31,7 @@ class _EditingWidget extends ViewModelWidget<HomeViewModel> {
   final GlobalKey imageKey;
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return Padding(
       padding: appSymmetricEdgePadding,
       child: Column(
@@ -94,11 +94,11 @@ class _EditingWidget extends ViewModelWidget<HomeViewModel> {
   }
 }
 
-class _SelectImageWidget extends ViewModelWidget<HomeViewModel> {
+class _SelectImageWidget extends ViewModelWidget<CameraViewModel> {
   const _SelectImageWidget();
 
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return Padding(
       padding: appSymmetricEdgePadding,
       child: Column(

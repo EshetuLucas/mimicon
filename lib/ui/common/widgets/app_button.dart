@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mimicon/enums/button_size_type.dart';
 import 'package:mimicon/ui/common/app_colors.dart';
 
 class AppButton extends StatelessWidget {
@@ -9,7 +10,7 @@ class AppButton extends StatelessWidget {
   final Color backgroundColor;
   final Color? textColor;
   final Color? loadingColor;
-  final double height;
+  final double? height;
   final bool busy;
   final bool isOutlined;
   final bool shadow;
@@ -20,40 +21,47 @@ class AppButton extends StatelessWidget {
   final bool roundOnlyBottom;
   final double borderRadius;
   final double fontSize;
+  final ButtonSize buttonSize;
 
-  const AppButton(
-      {Key? key,
-      this.fontSize = 15,
-      this.loadingColor,
-      this.borderRadius = 8,
-      required this.title,
-      this.roundOnlyBottom = false,
-      this.enabled = true,
-      this.busy = false,
-      this.isOutlined = false,
-      this.backgroundColor = kcPrimaryColor,
-      this.textColor,
-      this.shadow = false,
-      this.height = 40,
-      this.enablebuttonTextStyle,
-      this.disablebuttonTextStyle,
-      required this.onTap,
-      this.showButton = true,
-      this.subTitle,
-      this.leadingWidget})
-      : super(key: key);
+  const AppButton({
+    Key? key,
+    this.fontSize = 15,
+    this.loadingColor,
+    this.borderRadius = 32,
+    required this.title,
+    this.roundOnlyBottom = false,
+    this.enabled = true,
+    this.busy = false,
+    this.isOutlined = false,
+    this.backgroundColor = kcPrimaryColor,
+    this.textColor,
+    this.shadow = false,
+    this.height,
+    this.enablebuttonTextStyle,
+    this.disablebuttonTextStyle,
+    required this.onTap,
+    this.showButton = true,
+    this.subTitle,
+    this.buttonSize = ButtonSize.larg,
+    this.leadingWidget,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final buttonHight = height ?? buttonSize.size;
+
     final enableTextStyle = enablebuttonTextStyle ??
-        const TextStyle(
-            fontWeight: FontWeight.w700, fontSize: 12, letterSpacing: -1);
+        TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: buttonSize.butonTextSize,
+            letterSpacing: -0.45,
+            color: kcButtonTextColor);
     return GestureDetector(
       onTap: () => enabled && !busy ? onTap() : null,
       child: AnimatedContainer(
         curve: Curves.easeIn,
         duration: const Duration(milliseconds: 300),
         alignment: Alignment.center,
-        height: height,
+        height: buttonHight,
         width: double.infinity,
         decoration: BoxDecoration(
           color: isOutlined
@@ -93,8 +101,8 @@ class AppButton extends StatelessWidget {
           crossFadeState:
               busy ? CrossFadeState.showFirst : CrossFadeState.showSecond,
           firstChild: SizedBox(
-              width: height - 15,
-              height: height - 15,
+              width: buttonHight - 15,
+              height: buttonHight - 15,
               child: FittedBox(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),

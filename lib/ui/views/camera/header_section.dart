@@ -1,9 +1,9 @@
 part of 'home_view.dart';
 
-class HeaderSection extends ViewModelWidget<HomeViewModel> {
+class HeaderSection extends ViewModelWidget<CameraViewModel> {
   const HeaderSection({super.key});
   @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
+  Widget build(BuildContext context, CameraViewModel viewModel) {
     return Column(
       children: [
         verticalSpaceSmall,

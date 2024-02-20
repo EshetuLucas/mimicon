@@ -36,18 +36,17 @@ class MyApp extends StackedView<MainViewModel> {
         splashColor: kcTransparent,
         highlightColor: kcTransparent,
         hoverColor: kcTransparent,
-        scaffoldBackgroundColor: kcDark,
+        scaffoldBackgroundColor: kcWhite,
         primaryColor: kcDark,
         focusColor: kcPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: kcWhite),
       ),
       home: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: viewModel.systemUiOverlayStyle,
-          child:
-              //MyHomePage()
-              //  const PlayVideoView()
-              // HomeView(),
-              const OptionsView()),
+          value: viewModel.systemUiOverlayStyle, child: const HomeView()
+          //MyHomePage()
+          //  const PlayVideoView()
+          // CameraView(),
+          //  const OptionsView()
+          ),
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [
@@ -71,10 +70,10 @@ class MainViewModel extends BaseViewModel {
     statusBarColor: kcDark,
     systemNavigationBarColor: kcDark,
     systemNavigationBarDividerColor: kcDark,
-    statusBarBrightness: Brightness.dark,
-    systemNavigationBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+    systemNavigationBarIconBrightness: Brightness.light,
     systemStatusBarContrastEnforced: true,
-    statusBarIconBrightness: Brightness.dark,
+    statusBarIconBrightness: Brightness.light,
   );
 
   static const androidOverlayStyle = SystemUiOverlayStyle(

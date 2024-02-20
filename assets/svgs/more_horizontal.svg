@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <path style="fill:none" d="M0 0h40v40H0z" transform="rotate(90 20 20)"/>
+    <g data-name="그룹 187141">
+        <path data-name="패스 38638" d="M13.5 0A1.5 1.5 0 1 1 12 1.5 1.5 1.5 0 0 1 13.5 0" transform="rotate(180 13.75 10.75)" style="fill:#222"/>
+        <path data-name="패스 38639" d="M7.5 0A1.5 1.5 0 1 1 6 1.5 1.5 1.5 0 0 1 7.5 0" transform="rotate(180 13.75 10.75)" style="fill:#222"/>
+        <path data-name="패스 38640" d="M1.5 0A1.5 1.5 0 1 1 0 1.5 1.5 1.5 0 0 1 1.5 0" transform="rotate(180 13.75 10.75)" style="fill:#222"/>
+    </g>
+</svg>
