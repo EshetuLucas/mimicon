@@ -166,6 +166,45 @@ class _MimiconWidget extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: kcDark.withOpacity(0.6),
+                            spreadRadius: 4,
+                            blurRadius: 40,
+                            offset: const Offset(
+                              0, // This is from X direction
+                              13, // This is from Y direction
+                            ), // changes position of the shadow to the given direction
+                          )
+                        ]),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Row(
+                            children: [
+                              const SvgBuilder(svg: heartSvg),
+                              horizontalSpaceTiny,
+                              Text(
+                                '157',
+                                style: ktsBoldMeidumDarkTextStyle(context)
+                                    .copyWith(fontSize: 14, color: kcWhite),
+                              ),
+                              horizontalSpaceSmall,
+                              const SvgBuilder(svg: talkSvg),
+                              horizontalSpaceTiny,
+                              Text(
+                                '36',
+                                style: ktsBoldMeidumDarkTextStyle(context)
+                                    .copyWith(fontSize: 14, color: kcWhite),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),
